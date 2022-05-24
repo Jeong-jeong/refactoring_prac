@@ -11,8 +11,6 @@ export function statement(invoice) {
   }).format;
 
   for (let aPerformance of invoice.performances) {
-    // @NOTE: switch문을 분리해 calcAmount 함수로 추출
-    const thisAmount = calcAmount({ aPerformance });
     // 포인트를 적립한다.
     volumeCredits += Math.max(aPerformance.audience - 30, 0);
 
@@ -22,8 +20,8 @@ export function statement(invoice) {
     }
 
     // 청구 내역을 출력한다.
-    result += `${play.name}: ${format(thisAmount / 100)} ${aPerformance.audience}석\n`;
-    totalAmount += thisAmount;
+    result += `${play.name}: ${format(calcAmount(aPerformance) / 100)} ${aPerformance.audience}석\n`;
+    totalAmount += calcAmount(aPerformance);
   }
   result += `총액 ${format(totalAmount / 100)}\n`;
   result += `적립 포인트 ${volumeCredits}점\n`;

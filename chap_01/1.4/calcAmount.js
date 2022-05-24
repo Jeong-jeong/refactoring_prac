@@ -2,7 +2,7 @@ function playFor(aPerformance) {
   return plays[aPerformance.playID];
 }
 
-export function calcAmount({ aPerformance }) {
+export function calcAmount(aPerformance) {
   let result = 0;
 
   switch (playFor(aPerformance).type) {
