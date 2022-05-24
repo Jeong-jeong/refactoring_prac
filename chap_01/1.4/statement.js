@@ -1,4 +1,13 @@
-import { calcAmount } from "./calcAmount";
+import { calcAmount, playFor } from "./utils";
+
+function volumeCreditsFor(aPerformance) {
+  let result = 0;
+  result += Math.max(aPerformance.audience - 30, 0);
+  if ("comedy" === playFor(aPerformance).type) {
+    result += Math.floor(aPerformance.audience / 5);
+    return result;
+  }
+}
 
 export function statement(invoice) {
   let totalAmount = 0;
@@ -11,13 +20,8 @@ export function statement(invoice) {
   }).format;
 
   for (let aPerformance of invoice.performances) {
-    // 포인트를 적립한다.
-    volumeCredits += Math.max(aPerformance.audience - 30, 0);
-
-    // 희극 관객 5명마다 추가 포인트를 제공한다.
-    if ("comedy" === play.type) {
-      volumeCredits += Math.floor(aPerformance.audience / 5);
-    }
+    // 추출한 volumeCreditsFor 함수로 값을 누적
+    volumeCredits += volumeCreditsFor(aPerformance);
 
     // 청구 내역을 출력한다.
     result += `${play.name}: ${format(calcAmount(aPerformance) / 100)} ${aPerformance.audience}석\n`;
