@@ -1,7 +1,3 @@
-function playFor(aPerformance) {
-  return plays[aPerformance.playID];
-}
-
 export function calcAmount(aPerformance) {
   let result = 0;
 
@@ -26,4 +22,8 @@ export function calcAmount(aPerformance) {
       throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
   }
   return result;
+}
+
+export function playFor(aPerformance) {
+  return plays[aPerformance.playID];
 }
