@@ -27,3 +27,20 @@ export function calcAmount(aPerformance) {
 export function playFor(aPerformance) {
   return plays[aPerformance.playID];
 }
+
+export function volumeCreditsFor(aPerformance) {
+  let result = 0;
+  result += Math.max(aPerformance.audience - 30, 0);
+  if ("comedy" === playFor(aPerformance).type) {
+    result += Math.floor(aPerformance.audience / 5);
+    return result;
+  }
+}
+
+export function format(aNumber) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2,
+  }).format;
+}
